@@ -47,6 +47,8 @@ class MainActivity : AppCompatActivity() {
             countDownTimer.start()
         }
 
+        handleIntent()
+
 
     }
 
@@ -59,7 +61,7 @@ class MainActivity : AppCompatActivity() {
             build()
         }
 
-        val intent = Intent(this, AlertDetails::class.java).apply {
+        val intent = Intent(this, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
         intent.putExtra("okeoke", getMessageText(intent))
@@ -105,5 +107,21 @@ class MainActivity : AppCompatActivity() {
 
     private fun getMessageText(intent: Intent): CharSequence? {
         return RemoteInput.getResultsFromIntent(intent)?.getCharSequence(KEY_TEXT_REPLY)
+    }
+
+    private fun handleIntent() {
+
+        val intent = this.intent
+
+        val remoteInput = RemoteInput.getResultsFromIntent(intent)
+
+        if (remoteInput != null) {
+
+            val inputString = remoteInput.getCharSequence(
+                KEY_TEXT_REPLY).toString()
+
+            binding.text.text = inputString
+
+        }
     }
 }
