@@ -64,7 +64,6 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
-        intent.putExtra("okeoke", getMessageText(intent))
 
         var replyPendingIntent: PendingIntent =
             PendingIntent.getActivity(
@@ -103,10 +102,6 @@ class MainActivity : AppCompatActivity() {
 
             notificationManager.createNotificationChannel(channel)
         }
-    }
-
-    private fun getMessageText(intent: Intent): CharSequence? {
-        return RemoteInput.getResultsFromIntent(intent)?.getCharSequence(KEY_TEXT_REPLY)
     }
 
     private fun handleIntent() {
